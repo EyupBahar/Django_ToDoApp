@@ -1,8 +1,8 @@
 from django.db import models
 
-class Todos(models.Model):
+class Todo(models.Model):
     todo_number = models.IntegerField()
-    todo_content = models.CharField(max_length=30)
+    todo_content = models.CharField(max_length=300)
 
 
     def __str__(self):
