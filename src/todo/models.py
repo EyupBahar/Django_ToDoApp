@@ -1,6 +1,6 @@
 from django.db import models
 
-class Todolist(models.Model):
+class Todos(models.Model):
     todo_number = models.IntegerField()
     todo_content = models.CharField(max_length=30)
 
