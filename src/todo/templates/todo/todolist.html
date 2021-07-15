@@ -1,15 +1,18 @@
 {% extends 'todo/base.html' %}
 
 {% block content %}
-<h2>Todo List</h2>
+<div>
+    <h3>Todo List</h3>
 <ul>
     {% for todo in todos %}
+    <a href="{% url 'todo-update' todo.id %}">
     {% if todo.completed %}
-    <li><del>{{todo}}</del></li>
+        <li><del>{{ todo }}</del></li>
     {% else %}
-
-    <li>{{todo}}</li>
+        <li>{{ todo }}</li>
     {% endif %}
+    </a>    
     {% endfor %}
-</ul>
+</ul>        
+</div>
 {% endblock content %}
