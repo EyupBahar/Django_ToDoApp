@@ -4,7 +4,12 @@
 <h2>Todo List</h2>
 <ul>
     {% for todo in todos %}
+    {% if todo.completed %}
+    <li><del>{{todo}}</del></li>
+    {% else %}
+
     <li>{{todo}}</li>
+    {% endif %}
     {% endfor %}
 </ul>
 {% endblock content %}
