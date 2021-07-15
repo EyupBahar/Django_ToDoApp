@@ -1,39 +1,55 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import Todo
-from .forms import TodoAppForm
+from .forms import TodoAddForm, TodoUpdateForm
 
+# Create your views here.
 def home(request):
-    return render(request, 'todo/home.html')
+    return render(request, "todo/home.html")
+
 
 def todolist(request):
     todos = Todo.objects.all()
     context = {
-        'todos':todos,
+        'todos': todos
     }
     return render(request, 'todo/todolist.html', context)
+
 
 def todo_create(request):
     form = TodoAddForm()
     if request.method == 'POST':
-        form = TodoAddForm(request, POST)
+        form = TodoAddForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('todolist')
+            return redirect('todolist') 
     context = {
-        'form':form,
+        'form': form
     }
-    return render(request,'todo/todo_create.html', context)
+    return render(request, 'todo/todo_create.html', context)
+
 
 def todo_update(request, id):
     todo = get_object_or_404(Todo, id=id)
-    form = TodoUpdateForm(instance=todo)
+    form = TodoUpdateForm(instance=todo)  # fills the form
     if request.method == 'POST':
         form = TodoUpdateForm(request.POST, instance=todo)
         if form.is_valid():
+            print(form)
             form.save()
-            return redirect("todolist")
+            return redirect('todolist')
+    context = {
+        'form': form,
+        'todo': todo
+    }
+    return render(request, 'todo/todo_update.html', context)
 
-        context = {
-            'form':form
-        } 
-        return render(request, 'todo/todo_update.html', context)
+
+def todo_delete(request, id):
+    todo = get_object_or_404(Todo, id=id)    
+    if request.method == 'POST':
+        todo.delete()
+        return redirect('todolist')
+    context = {
+        'todo': todo
+    }
+    return render(request, 'todo/todo_delete.html', context)
