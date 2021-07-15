@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Todo
-from forms import TodoAddForm
+from .forms import TodoAddForm
 
 def home(request):
     return render(request, 'todo/home.html')
@@ -14,6 +14,11 @@ def todolist(request):
 
 def todo_create(request):
     form = TodoAddForm()
+    if request.method == 'POST':
+        form = TodoAddForm(request, POST)
+        if form.is_valid():
+            form.save()
+            return redirect('todolist')
     context = {
         'form':form,
     }
