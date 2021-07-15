@@ -1,14 +1,15 @@
+
 from django import forms
 from .models import Todo
 
-class TodoAppForm(forms.ModelForm):
-
+class TodoAddForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = '__all__'
+        fields = ('title',)  # This is a tuple, add comma after
+        
 
 class TodoUpdateForm(forms.ModelForm):
-
     class Meta:
         model = Todo
-        fields = ("title", "Completed")
+        fields = ('title', 'completed')
+        # exclude = ('created_date',)
