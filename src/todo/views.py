@@ -39,7 +39,7 @@ def todo_update(request, id):
             return redirect('todolist')
     context = {
         'form': form,
-        'todo': todo
+        'todo': todo,
     }
     return render(request, 'todo/todo_update.html', context)
 
