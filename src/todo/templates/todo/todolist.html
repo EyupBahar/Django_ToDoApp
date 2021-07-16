@@ -5,13 +5,15 @@
     <h3>Todo List</h3>
 <ul>
     {% for todo in todos %}
-    <a href="{% url 'todo_update' todo.id %}">
     {% if todo.completed %}
+    <a href="{% url 'todo_update' todo.id %}">
         <li><del>{{ todo }}</del></li>
+    </a>
     {% else %}
+    <a href="{% url 'todo_update' todo.id %}">
         <li>{{ todo }}</li>
-    {% endif %}
-    </a>    
+    </a>
+    {% endif %}   
     {% endfor %}
 </ul>        
 </div>
