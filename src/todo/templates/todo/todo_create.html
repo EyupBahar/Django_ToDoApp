@@ -1,9 +1,14 @@
-{% extends 'todo/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Add">
-    </form>
+
+<form action="", method="POST">
+    
+    <!-- Using post method we must add csrf token. -->
+    {% csrf_token %}  
+    {{ form }}
+    <input type="submit", value="Add">
+
+</form>
+
 {% endblock content %}
