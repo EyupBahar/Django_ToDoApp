@@ -7,12 +7,12 @@ def home(request):
     return render(request, "todo/home.html")
 
 
-def todolist(request):
+def todo_list(request):
     todos = Todo.objects.all()
     context = {
         'todos': todos
     }
-    return render(request, 'todo/todolist.html', context)
+    return render(request, 'todo/todo_list.html', context)
 
 
 def todo_create(request):
@@ -21,7 +21,7 @@ def todo_create(request):
         form = TodoAddForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('todolist') 
+            return redirect('todo-list') 
     context = {
         'form': form
     }
@@ -36,10 +36,10 @@ def todo_update(request, id):
         if form.is_valid():
             print(form)
             form.save()
-            return redirect('todolist')
+            return redirect('todo-list')
     context = {
         'form': form,
-        'todo': todo,
+        'todo': todo
     }
     return render(request, 'todo/todo_update.html', context)
 
@@ -48,7 +48,7 @@ def todo_delete(request, id):
     todo = get_object_or_404(Todo, id=id)    
     if request.method == 'POST':
         todo.delete()
-        return redirect('todolist')
+        return redirect('todo-list')
     context = {
         'todo': todo
     }
